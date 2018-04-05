@@ -1,0 +1,47 @@
+
+    <div class="row" *appMyIf="isSearch">
+      <div class="col-3 offset-4">
+        <select [(ngModel)]="serchKey" class="form-control">
+          <option *ngFor="let key of keys" [value]="key">{{ key }}</option>
+        </select>
+      </div>
+      <div class="col-3">
+        <input type="text" [(ngModel)]="phrase" class="form-control">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8 offset-2">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th [appSorter]="sortKeys"
+                (click)="sortUsers(key)"
+                *ngFor="let key of keys">
+                  <span [class.visible]="sortKeys[key] == 'up'">
+                    <i class="fas fa-sort-alpha-up"></i>
+                  </span>
+                  <span [class.visible]="sortKeys[key] == 'down'">
+                    <i class="fas fa-sort-alpha-down"></i>
+                  </span>
+                  {{ key }}
+                </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userList | tableFilter:serchKey:phrase; index as i">
+              <td>{{ i+1 }}</td>
+              <td *ngFor="let key of keys">{{ user[key] }}</td>
+              <td>
+                <button (click)="setUser(user)" class="btn btn-info">details</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8 offset-2">
+
+    </div>

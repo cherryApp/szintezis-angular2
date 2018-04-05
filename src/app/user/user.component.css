@@ -1,0 +1,6 @@
+th span {
+  display: none;
+}
+th span.visible {
+  display: inline;
+}

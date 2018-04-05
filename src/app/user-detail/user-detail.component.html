@@ -1,3 +1,9 @@
+<div *ngIf="showAlert == 1" class="alert alert-success">
+  <strong>Mentés kész!</strong> Az adatokat sikeresen frissítettük.
+</div>
+<div *ngIf="showAlert == 2" class="alert alert-danger">
+  <strong>Hiba!</strong> Az adatokat frissítése sikertelen.
+</div>
 <form (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="userName">Name</label>

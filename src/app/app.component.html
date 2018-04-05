@@ -1,33 +1,4 @@
 <app-nav></app-nav>
 <div class="container">
-  <div class="row">
-    <div class="col-8 offset-2">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th (click)="sortUsers(key)" *ngFor="let key of keys">{{ key }}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of userList; index as i">
-            <td>{{ i+1 }}</td>
-            <td *ngFor="let key of keys">{{ user[key] }}</td>
-            <td>
-              <button (click)="setUser(user)" class="btn btn-info">details</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-8 offset-2">
-      <app-user-detail
-        *ngIf="currentUser"
-        [currentUser]="currentUser"
-        (updateUser)="updateUser($event)"></app-user-detail>
-    </div>
-  </div>
+  <router-outlet></router-outlet>
 </div>
