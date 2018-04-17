@@ -14,6 +14,7 @@ export class CrudTableComponent implements OnInit {
 
   @Input() rowList: Observable<any>;
   @Input() keys: Array<string>;
+  @Input() keyList: any;
   @Input() serchKey: string;
   @Input() phrase: string;
 
@@ -23,6 +24,20 @@ export class CrudTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  getItemValue(row, item): any {
+    let value = row[item.key];
+
+    if (item.type === 'select') {
+      for (let k in item.list) {
+        if (item.list[k].key == value) {
+          value = item.list[k].value;
+          break;
+        }
+      }
+    }
+    return value;
   }
 
   sortRows(key): void {

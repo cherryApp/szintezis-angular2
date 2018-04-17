@@ -1,6 +1,6 @@
 <table class="table table-striped">
   <thead>
-    <tr>
+    <tr *ngIf="keys">
       <th>#</th>
       <th [appSorter]="sortKeys"
         (click)="sortRows(key)"
@@ -17,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr *ngIf="keys">
       <td></td>
       <td *ngFor="let key of keys">
         <input type="text" [(ngModel)]="newRow[key]" class="form-control">
@@ -26,9 +26,46 @@
         <button (click)="onCreate()" class="btn btn-success">add</button>
       </td>
     </tr>
+
+    <!-- If keyList is defined. -->
+    <tr *ngIf="keyList">
+      <td></td>
+      <td *ngFor="let item of keyList">
+        <input *ngIf="item.type !== 'select'"
+          [type]="item.type || 'text'"
+          [(ngModel)]="newRow[item.key]"
+          class="form-control">
+        <select
+          *ngIf="item.type === 'select'"
+          class="form-control"
+          [(ngModel)]="newRow[item.key]">
+            <option
+              *ngFor="let option of item.list"
+              [value]="option.key">{{ option.value }}</option>
+        </select>
+      </td>
+      <td>
+        <button (click)="onCreate()" class="btn btn-success">add</button>
+      </td>
+    </tr>
+    <!-- -->
+  </tbody>
+  <tbody *ngIf="keys">
+      <tr *ngFor="let row of rowList | async | tableFilter:serchKey:phrase | crudSort:lastKey:order; index as i">
+        <td>{{ i+1 }}</td>
+        <td *ngFor="let key of keys">{{ row[key] }}</td>
+        <td>
+          <div class="btn-group">
+            <button (click)="onSelect(row)" class="btn btn-info">details</button>
+            <button (click)="onRemove(row)" class="btn btn-danger">delete</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  <tbody *ngIf="keyList">
     <tr *ngFor="let row of rowList | async | tableFilter:serchKey:phrase | crudSort:lastKey:order; index as i">
       <td>{{ i+1 }}</td>
-      <td *ngFor="let key of keys">{{ row[key] }}</td>
+      <td *ngFor="let item of keyList">{{ getItemValue(row, item) }}</td>
       <td>
         <div class="btn-group">
           <button (click)="onSelect(row)" class="btn btn-info">details</button>

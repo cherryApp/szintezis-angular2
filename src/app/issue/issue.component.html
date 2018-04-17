@@ -1,7 +1,11 @@
 <div class="row">
-  <div class="col-8 offset-2">
+  <div class="col-12">
     <app-crud-table
       [rowList]="list"
-      [keys]="keys"></app-crud-table>
+      [keyList]="keys"
+      (add)="create($event)"
+      (update)="update($event)"
+      (remove)="remove($event)">
+    </app-crud-table>
   </div>
 </div>
