@@ -1,28 +1,39 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { User } from '../model/user';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../service/user.service';
+import { Subscription } from 'rxjs/Subscription';
+import { map, take, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.css']
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit, OnDestroy {
   @Output() updateUser: EventEmitter<User> = new EventEmitter<User>();
-  user: User;
+  user: User = new User();
   id: string = "";
   showAlert: number = 0;
+  userSubsribe: Subscription;
   constructor(
     private ar: ActivatedRoute,
     private uService: UserService) {
-      this.user = this.uService.list[0];
       this.ar.params.subscribe( p => {
-        this.user = new User(this.uService.getUserById(p.id));
+        this.uService.getUserById(p.id).forEach( user => {
+          this.user = new User(user);
+        });
       });
   }
 
   ngOnInit() {
+    this.userSubsribe = this.uService.getAll().subscribe(
+      // userList => this.user = userList[0]
+    );
+  }
+
+  ngOnDestroy() {
+    this.userSubsribe.unsubscribe();
   }
 
   showFeedback(type: number = 1, delay: number = 5000) {

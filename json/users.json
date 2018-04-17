@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Kiss Béla",
+      "age": 33,
+      "email": "kiss.bela@gmail.com",
+      "job": "scrum master"
+    },
+    {
+      "id": 4,
+      "name": "Kovács Tamás",
+      "age": 45,
+      "email": "kt@outlook.com",
+      "job": "programmer"
+    },
+    {
+      "id": 5,
+      "name": "Hujber Anikó",
+      "age": 18,
+      "email": "haniko@szintezis-net.hu",
+      "job": "java architect"
+    },
+    {
+      "id": 6,
+      "name": "Harangozó Terézia",
+      "age": 70,
+      "email": "terike@gmail.com",
+      "job": "actor"
+    },
+    {
+      "name": "aésldjféaskl",
+      "email": "éasldjfasékl",
+      "job": "séladfjkél",
+      "age": "22",
+      "role": "1",
+      "id": 7
+    }
+  ]
+}

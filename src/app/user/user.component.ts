@@ -13,7 +13,8 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class UserComponent implements OnInit, OnDestroy {
 
-  userList: Array<User> = [];
+  userList: Observable<User[]>;
+  newUser: User = new User();
   currentUser: User;
   phrase: string = "";
   sortKeys: any = {};
@@ -52,34 +53,41 @@ export class UserComponent implements OnInit, OnDestroy {
 
     this.lastKey = key;
 
-    this.userList.sort( (a, b) => {
+    /*this.userList.sort( (a, b) => {
       if (!a || !b) return 0;
       return a[key].toString().localeCompare(b[key].toString()) * this.order;
-    });
+    });*/
   }
 
   setUser(user: User): void {
-    // this.currentUser = user;
     this.router.navigateByUrl('/user/'+user.id);
   }
 
+  onCreate(): void {
+    this.uService.create(this.newUser).forEach(res => {
+      console.log('created: ', res);
+    });
+  }
+
   updateUser(user: User): void {
-    for (let i = 0; i < this.userList.length; i++) {
+    /*for (let i = 0; i < this.userList.length; i++) {
       if (this.userList[i].id == user.id) {
         this.userList[i] = new User(user);
         break;
       }
-    }
+    }*/
+  }
+
+  onRemove(user: User): void {
+    this.uService.remove(user).forEach( response => {
+      console.log("response", response);
+    });
   }
 
   ngOnInit() {
-    this.sub = this.uService.listObserver.subscribe(
-      list => this.userList = list,
-      err => console.log(err),
-      () => console.log("finito")
-    );
+    this.userList = this.uService.listObserver;
   }
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
 }

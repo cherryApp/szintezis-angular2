@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -13,6 +13,7 @@ import { MyIfDirective } from './my-if.directive';
 import { SorterDirective } from './sorter.directive';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
+import { ConfigService } from './service/config.service';
 
 const routerSettings: Routes = [
   {
@@ -48,9 +49,11 @@ const routerSettings: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot(routerSettings)
   ],
   providers: [
+    ConfigService,
     UserService
   ],
   bootstrap: [AppComponent]

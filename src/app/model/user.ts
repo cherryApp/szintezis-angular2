@@ -6,7 +6,7 @@ export class User {
   email: string;
   role?: number;
 
-  constructor(settings: User) {
+  constructor(settings?: User) {
     for (let k in settings) {
       this[k] = settings[k];
     }

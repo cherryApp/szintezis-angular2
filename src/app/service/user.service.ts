@@ -1,43 +1,75 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { ConfigService } from './config.service';
+
 
 @Injectable()
 export class UserService {
   listObserver: Observable<any>;
-  constructor() {
-    setInterval( () => {
-      this.list.reverse();
-    }, 4000);
+  apiEndpoint: string = environment.endPoints.users;
+  listSubscribe: any;
+  constructor(private http: HttpClient, private config: ConfigService) {
+    this.listObserver = new Observable( observer => {
+      this.listSubscribe = observer;
+      this.refresh();
+    });
+  }
 
-    this.listObserver = new Observable(subscribe => {
-      subscribe.next(this.list);
+  refresh(): void {
+    this.http.get(this.apiEndpoint).forEach( list => {
+      this.listSubscribe.next(list);
     });
   }
 
 
-  getUserById(id: number | string): User {
-    for (var user of this.list) {
-      if (user.id == id) {
-        return user;
-      }
-    }
+  getUserById(id: number | string): Observable<User> {
+    return this.http.get<User>(`${this.apiEndpoint}/${id}`);
   }
 
+  /**
+   * Update user.
+   * @param user {User} - User object.
+   */
   save(user: User): Promise<any> {
     return new Promise( (resolve, reject) => {
-      for (var k in this.list) {
-        if (this.list[k].id == user.id) {
-          this.list[k] = user;
-          return resolve();
-        }
-      }
-      reject();
+      this.http.put(
+        `${this.apiEndpoint}/${user.id}`,
+        user
+      );
+    });
+  }
+
+  create(user: User): Observable<User> {
+    return new Observable( observer => {
+      this.http.post(
+        `${this.apiEndpoint}`,
+        user,
+        this.config.http.json
+      ).forEach( res => {
+        console.log(res);
+        this.refresh();
+        observer.next(user);
+      });
+    });
+  }
+
+  remove(user: User): Observable<any> {
+    return new Observable<any>( observer => {
+      this.http.delete<any>(`${this.apiEndpoint}/${user.id}`)
+        .forEach( res => {
+          this.refresh();
+          observer.next('ok');
+        });
     });
   }
 
   getAll(): Observable<User[]> {
-    return
+    return new Observable<User[]>( observer => {
+      observer.next(this.list);
+    });
   }
 
   private list: Array<User> = [
