@@ -14,6 +14,10 @@ import { SorterDirective } from './sorter.directive';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { ConfigService } from './service/config.service';
+import { CrudTableComponent } from './crud-table/crud-table.component';
+import { CrudSortPipe } from './crud-table/crud-sort.pipe';
+import { IssueComponent } from './issue/issue.component';
+import { IssueService } from './service/issue.service';
 
 const routerSettings: Routes = [
   {
@@ -27,6 +31,14 @@ const routerSettings: Routes = [
   {
     path: "user/:id",
     component: UserDetailComponent
+  },
+  {
+    path: "issue",
+    component: IssueComponent
+  },
+  {
+    path: "issue/:id",
+    component: IssueComponent
   },
   {
     path: "**",
@@ -44,7 +56,10 @@ const routerSettings: Routes = [
     MyIfDirective,
     SorterDirective,
     HomeComponent,
-    UserComponent
+    UserComponent,
+    CrudTableComponent,
+    CrudSortPipe,
+    IssueComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +69,8 @@ const routerSettings: Routes = [
   ],
   providers: [
     ConfigService,
-    UserService
+    UserService,
+    IssueService
   ],
   bootstrap: [AppComponent]
 })

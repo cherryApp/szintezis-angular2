@@ -27,9 +27,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.userSubsribe = this.uService.getAll().subscribe(
-      // userList => this.user = userList[0]
-    );
+
   }
 
   ngOnDestroy() {

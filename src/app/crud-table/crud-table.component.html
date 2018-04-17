@@ -1,0 +1,40 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th [appSorter]="sortKeys"
+        (click)="sortRows(key)"
+        *ngFor="let key of keys">
+          <span [class.visible]="sortKeys[key] == 'up'">
+            <i class="fas fa-sort-alpha-up"></i>
+          </span>
+          <span [class.visible]="sortKeys[key] == 'down'">
+            <i class="fas fa-sort-alpha-down"></i>
+          </span>
+          {{ key }}
+        </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td *ngFor="let key of keys">
+        <input type="text" [(ngModel)]="newRow[key]" class="form-control">
+      </td>
+      <td>
+        <button (click)="onCreate()" class="btn btn-success">add</button>
+      </td>
+    </tr>
+    <tr *ngFor="let row of rowList | async | tableFilter:serchKey:phrase | crudSort:lastKey:order; index as i">
+      <td>{{ i+1 }}</td>
+      <td *ngFor="let key of keys">{{ row[key] }}</td>
+      <td>
+        <div class="btn-group">
+          <button (click)="onSelect(row)" class="btn btn-info">details</button>
+          <button (click)="onRemove(row)" class="btn btn-danger">delete</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -22,19 +22,21 @@
       "job": "java architect"
     },
     {
-      "id": 6,
-      "name": "Harangozó Terézia",
-      "age": 70,
-      "email": "terike@gmail.com",
-      "job": "actor"
-    },
-    {
-      "name": "aésldjféaskl",
-      "email": "éasldjfasékl",
+      "name": "Tóth Géza",
+      "email": "tg@gmail.com",
       "job": "séladfjkél",
       "age": "22",
       "role": "1",
       "id": 7
+    },
+    {
+      "name": "Kása Attila",
+      "email": "atti@gmail.com",
+      "job": "CEO",
+      "age": "40",
+      "role": "2",
+      "id": 8
     }
-  ]
+  ],
+  "issues": []
 }

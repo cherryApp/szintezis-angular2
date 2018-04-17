@@ -18,6 +18,7 @@ export class UserComponent implements OnInit, OnDestroy {
   currentUser: User;
   phrase: string = "";
   sortKeys: any = {};
+  serchKey: string = "";
   lastKey: string = "";
   order: number = 1;
   isSearch: boolean = true;
@@ -40,42 +41,14 @@ export class UserComponent implements OnInit, OnDestroy {
 
   }
 
-  sortUsers(key): void {
-    for (var k in this.sortKeys) {
-      this.sortKeys[k] = "";
-    }
-    if (this.lastKey == key) {
-      this.order *= -1;
-    } else {
-      this.order = 1;
-    }
-    this.sortKeys[key] = this.order == -1 ? 'up' : 'down';
-
-    this.lastKey = key;
-
-    /*this.userList.sort( (a, b) => {
-      if (!a || !b) return 0;
-      return a[key].toString().localeCompare(b[key].toString()) * this.order;
-    });*/
-  }
-
   setUser(user: User): void {
     this.router.navigateByUrl('/user/'+user.id);
   }
 
-  onCreate(): void {
-    this.uService.create(this.newUser).forEach(res => {
+  onCreate(user: User): void {
+    this.uService.create(user).forEach(res => {
       console.log('created: ', res);
     });
-  }
-
-  updateUser(user: User): void {
-    /*for (let i = 0; i < this.userList.length; i++) {
-      if (this.userList[i].id == user.id) {
-        this.userList[i] = new User(user);
-        break;
-      }
-    }*/
   }
 
   onRemove(user: User): void {

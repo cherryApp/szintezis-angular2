@@ -10,49 +10,17 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-8 offset-2">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th [appSorter]="sortKeys"
-                (click)="sortUsers(key)"
-                *ngFor="let key of keys">
-                  <span [class.visible]="sortKeys[key] == 'up'">
-                    <i class="fas fa-sort-alpha-up"></i>
-                  </span>
-                  <span [class.visible]="sortKeys[key] == 'down'">
-                    <i class="fas fa-sort-alpha-down"></i>
-                  </span>
-                  {{ key }}
-                </th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td *ngFor="let key of keys">
-                <input type="text" [(ngModel)]="newUser[key]" class="form-control">
-              </td>
-              <td>
-                <button (click)="onCreate()" class="btn btn-success">add</button>
-              </td>
-            </tr>
-            <tr *ngFor="let user of userList | async | tableFilter:serchKey:phrase; index as i">
-              <td>{{ i+1 }}</td>
-              <td *ngFor="let key of keys">{{ user[key] }}</td>
-              <td>
-                <div class="btn-group">
-                  <button (click)="setUser(user)" class="btn btn-info">details</button>
-                  <button (click)="onRemove(user)" class="btn btn-danger">delete</button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+        <div class="col-8 offset-2">
+          <app-crud-table
+            [rowList]="userList"
+            [keys]="keys"
+            [serchKey]="serchKey"
+            [phrase]="phrase"
+            (add)="onCreate($event)"
+            (update)="setUser($event)"
+            (remove)="onRemove($event)"></app-crud-table>
+        </div>
+     </div>
     <div class="row">
       <div class="col-8 offset-2">
 

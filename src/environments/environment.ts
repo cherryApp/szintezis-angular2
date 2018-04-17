@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   endPoints: {
-    users: 'http://localhost:3001/users'
+    users: 'http://localhost:3001/users',
+    issues: 'http://localhost:3001/issues'
   }
 };
