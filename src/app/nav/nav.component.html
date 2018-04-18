@@ -15,6 +15,9 @@
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <a class="nav-link" routerLink="/issue">{{ 'issue' | i18nSelect:translate }}</a>
       </li>
+      <li class="nav-item" routerLinkActive="comment" [routerLinkActiveOptions]="{exact: true}">
+        <a class="nav-link" routerLink="/comment">{{ 'comment' | i18nSelect:translate }}</a>
+      </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

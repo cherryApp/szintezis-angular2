@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -25,6 +26,7 @@ import { LoginComponent } from './login/login.component';
 import { environment } from '../environments/environment';
 import { TranslateService } from './service/translate.service';
 import { RegisterComponent } from './register/register.component';
+import { CommentComponent } from './comment/comment.component';
 
 const routerSettings: Routes = [
   {
@@ -56,6 +58,10 @@ const routerSettings: Routes = [
     component: RegisterComponent
   },
   {
+    path: "comment",
+    component: CommentComponent
+  },
+  {
     path: "**",
     component: HomeComponent
   }
@@ -76,7 +82,8 @@ const routerSettings: Routes = [
     CrudSortPipe,
     IssueComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +92,8 @@ const routerSettings: Routes = [
     RouterModule.forRoot(routerSettings),
     AngularFireModule.initializeApp(environment.firebaseSettings),
     AngularFireAuthModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireDatabaseModule
   ],
   providers: [
     ConfigService,
