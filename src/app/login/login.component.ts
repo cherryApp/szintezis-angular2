@@ -25,7 +25,12 @@ export class LoginComponent implements OnInit {
     this.afAuth.auth.signInWithEmailAndPassword(
       this.userData.email,
       this.userData.password
-    // );
+    );
+  }
+
+  checkError(model, type): boolean {
+    if (!model.errors) return false;
+    return model.errors[type];
   }
 
 }

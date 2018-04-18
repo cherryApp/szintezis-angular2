@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -23,6 +23,8 @@ import { IssueComponent } from './issue/issue.component';
 import { IssueService } from './service/issue.service';
 import { LoginComponent } from './login/login.component';
 import { environment } from '../environments/environment';
+import { TranslateService } from './service/translate.service';
+import { RegisterComponent } from './register/register.component';
 
 const routerSettings: Routes = [
   {
@@ -50,6 +52,10 @@ const routerSettings: Routes = [
     component: LoginComponent
   },
   {
+    path: "register",
+    component: RegisterComponent
+  },
+  {
     path: "**",
     component: HomeComponent
   }
@@ -69,7 +75,8 @@ const routerSettings: Routes = [
     CrudTableComponent,
     CrudSortPipe,
     IssueComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -77,12 +84,14 @@ const routerSettings: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routerSettings),
     AngularFireModule.initializeApp(environment.firebaseSettings),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ReactiveFormsModule
   ],
   providers: [
     ConfigService,
     UserService,
-    IssueService
+    IssueService,
+    TranslateService
   ],
   bootstrap: [AppComponent]
 })

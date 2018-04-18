@@ -3,3 +3,12 @@
   margin: 0 auto;
   margin-top: 30px;
 }
+
+input.ng-invalid {
+  border-left: solid 5px rgb(197, 9, 9);
+}
+
+.error-message {
+  color: rgb(197, 9, 9);
+  font-style: italic;
+}
