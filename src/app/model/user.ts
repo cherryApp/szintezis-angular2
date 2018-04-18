@@ -4,6 +4,7 @@ export class User {
   age: number;
   job: string;
   email: string;
+  password: string;
   role?: number;
 
   constructor(settings?: User) {

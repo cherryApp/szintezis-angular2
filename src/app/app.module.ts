@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { UserService } from './service/user.service';
@@ -18,6 +21,8 @@ import { CrudTableComponent } from './crud-table/crud-table.component';
 import { CrudSortPipe } from './crud-table/crud-sort.pipe';
 import { IssueComponent } from './issue/issue.component';
 import { IssueService } from './service/issue.service';
+import { LoginComponent } from './login/login.component';
+import { environment } from '../environments/environment';
 
 const routerSettings: Routes = [
   {
@@ -41,6 +46,10 @@ const routerSettings: Routes = [
     component: IssueComponent
   },
   {
+    path: "login",
+    component: LoginComponent
+  },
+  {
     path: "**",
     component: HomeComponent
   }
@@ -59,13 +68,16 @@ const routerSettings: Routes = [
     UserComponent,
     CrudTableComponent,
     CrudSortPipe,
-    IssueComponent
+    IssueComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routerSettings)
+    RouterModule.forRoot(routerSettings),
+    AngularFireModule.initializeApp(environment.firebaseSettings),
+    AngularFireAuthModule
   ],
   providers: [
     ConfigService,
